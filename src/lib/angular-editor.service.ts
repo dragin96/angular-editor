@@ -148,15 +148,16 @@ export class AngularEditorService {
    * @param file
    */
   uploadImage(file: File): Observable<HttpEvent<UploadResponse>> {
-
-    const uploadData: FormData = new FormData();
-
-    uploadData.append('file', file, file.name);
-
-    return this.http.post<UploadResponse>(this.uploadUrl, uploadData, {
-      reportProgress: true,
-      observe: 'events',
-    });
+    let _this = this;
+    var reader = new FileReader(),
+      input = file;
+    reader.addEventListener("loadend", function (result) {
+      let img = result.target.result;
+      console.log(img)
+      const newUrl = `<img src="${img}">`;
+      _this.insertHtml(newUrl);
+    }, false);
+    reader.readAsDataURL(input);
   }
 
   /**

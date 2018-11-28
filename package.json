@@ -20,5 +20,8 @@
     "angular-editor",
     "angular-wysiwyg-editor",
     "wysiwyg-editor"
-  ]
+  ],
+  "devDependencies": {
+    "ng-packagr": "^4.4.0"
+  }
 }

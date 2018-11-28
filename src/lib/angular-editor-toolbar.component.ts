@@ -190,13 +190,17 @@ export class AngularEditorToolbarComponent {
    */
   onFileChanged(event) {
     const file = event.target.files[0];
+    const _this = this;
       if (file.type.includes("image/")) {
-        this.editorService.uploadImage(file).subscribe(e => {
-          if (e instanceof HttpResponse) {
-            this.editorService.insertImage(e.body.imageUrl);
-            this.fileReset();
-          }
-        });
+        var reader = new FileReader(),
+          input = file;
+        reader.addEventListener("loadend", function (result) {
+          let img = result.target.result;
+          console.log(img)
+          
+          _this.fileReset();
+        }, false);
+        reader.readAsDataURL(input);
       }
   }
 
